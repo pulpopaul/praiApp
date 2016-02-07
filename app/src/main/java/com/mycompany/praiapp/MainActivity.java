@@ -1,6 +1,7 @@
 package com.mycompany.praiapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -18,7 +19,7 @@ public class MainActivity extends Activity {
     Paso 1: definimos el arrayList fuera del onCreate.
     Asi podemos accederlo cuando generamos el toast.
     */
-    ArrayList<Playa> listaDePlayas = new ArrayList<Playa>();
+    private ArrayList<Playa> listaDePlayas = new ArrayList<Playa>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
         Playa playa3 = new Playa("Jericocoara", "Ceara", R.drawable.playa3);
         Playa playa4 = new Playa("joaquina", "Santa Catarina", R.drawable.playa4);
 
-        // Paso 3: Generamos un ArrayList con nuestros datos. Cada elem es un objeto Playa
+        // Paso 3:  poblamos el ArrayList con nuestros datos. Cada elem es un objeto Playa
 
         listaDePlayas.add(playa1);
         listaDePlayas.add(playa2);
@@ -58,13 +59,32 @@ public class MainActivity extends Activity {
         //Paso 4: conectamos el adapter a la listView.
         listView.setAdapter(myAdapter);
 
-        //Paso 5: creamos un OnItemClickListener y un toast con el nombre de la playa
+        //Paso 5: creamos un OnItemClickListener, pasamos los datos de la playa a la nueva activity y la lanzamos.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Playa playa = listaDePlayas.get(position);
-                Toast.makeText(getBaseContext(), playa.getNombre(), Toast.LENGTH_LONG).show();
+
+                //Creamos un intent y un bundle para pasar los datos
+                Intent intent = new Intent(MainActivity.this, Detalle.class);
+                Bundle bundle = new Bundle();
+
+                //Agregamos el nombre al bundle
+                String nombre = (String) playa.getNombre();
+                bundle.putString("nombre", nombre);
+
+                //Agregamos el estado
+                String estado = (String) playa.getEstado();
+                bundle.putString("estado", estado);
+
+                //Agregamos la img
+                Integer imgId = (int) playa.getImgId();
+                bundle.putInt("imgId", imgId);
+
+                //Pasamos los datos e iniciamos la nueva activity
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
