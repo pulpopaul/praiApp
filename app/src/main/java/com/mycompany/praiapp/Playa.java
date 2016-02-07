@@ -4,48 +4,27 @@ package com.mycompany.praiapp;
  * Created by pulpo on 08/01/16.
  */
 
-//Clase Playa, version 1: un solo campo, el nombre, que es lo que vamos a mostrar en la lista
+//Clase Playa, version 2: nombre, estado y foto.
 
 public class Playa {
 
     private String nombre;
+    private String estado;
+    private int imgId;
+
+    public Playa(String nombre, String estado, int imgId) {
+        this.nombre = nombre;
+        this.estado = estado;
+        this.imgId = imgId;    }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getEstado() {
+        return estado;
     }
+
+    public int getImgId() { return imgId; }
 
 }
-
-
-
-
-
-/*
-public class Playa {
-
-    private String nombre;
-    private int fotoId;
-    private int playaId;
-
-    public Playa(String nombre, int fotoId, int playaId) {
-        this.nombre = nombre;
-        this.fotoId = fotoId;
-        this.playaId = playaId;    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getFotoId() {
-        return fotoId;
-    }
-
-    public int getPlayaId() {
-        return playaId;
-    }
-}
-*/
